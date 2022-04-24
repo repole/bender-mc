@@ -1,5 +1,5 @@
-git+git://github.com/repole/mqlalchemy@dev#egg=MQLAlchemy
-git+git://github.com/repole/drowsy@dev#egg=drowsy
+MQLAlchemy
+drowsy
 sqlalchemy>=1.3
 flask
 marshmallow
@@ -8,4 +8,8 @@ requests
 inflect
 click
 cheroot
-pycaw
+MLB-StatsAPI
+srt
+selenium
+pytz
+psutil

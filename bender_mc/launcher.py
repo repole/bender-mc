@@ -6,16 +6,16 @@
 """
 # :copyright: (c) 2020 by Nicholas Repole.
 # :license: MIT - See LICENSE for more details.
+import os
 import ast
 import configparser
 import logging
 from logging.handlers import TimedRotatingFileHandler
-import os
 import click
 import flask
 from .api import (
-    video_api_blueprint, slots_blueprint, media_center_api_blueprint,
-    set_db_engine)
+    video_api_blueprint, slots_blueprint, media_center_api_blueprint)
+from .api.utils import set_db_engine
 from .server import run_wsgi_servers
 
 

@@ -1,0 +1,21 @@
+[global]
+video_db_connect_string = "sqlite+pysqlite:///C:\\Users\\yourwindowsuser\\AppData\\Roaming\\Kodi\\userdata\\Database\\MyVideos119.db"
+music_db_connect_string = "sqlite+pysqlite:///C:\\Users\\yourwindowsuser\\AppData\\Roaming\\Kodi\\userdata\\Database\\MyMusic82.db"
+
+[api_server]
+root = None
+hostname = "localhost"
+http_port = 5000
+https_port = None
+
+[kodirpc]
+url = "http://localhost:8080/"
+username = "usernameconfiguredinkodi"
+password = "passwordconfiguredinkodi"
+
+[browser]
+ublock_paconfig.inith = "C:\\Users\\yourwindowsuser\\AppData\\Local\\Google\\Chrome\\User Data\\Default\\Extensions\\cjpalhdlnbpafiamejdnhcphjbkeiagm\\"
+
+[nba]
+username = "nbalplogin"
+password = "nbalppassword"

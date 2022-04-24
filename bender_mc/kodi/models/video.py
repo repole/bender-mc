@@ -22,7 +22,8 @@ t_actor_link = Table(
     Column('media_type', Text, index=True),
     Column('role', Text),
     Column('cast_order', Integer),
-    Index('ix_actor_link_2', 'actor_id', 'media_id', 'media_type', 'role', unique=True)
+    Index('ix_actor_link_1', 'actor_id', 'media_type', 'media_id', 'role', unique=True),
+    Index('ix_actor_link_2', 'media_id', 'media_type', 'actor_id')
 )
 
 
@@ -31,8 +32,8 @@ t_country_link = Table(
     Column('country_id', Integer, ForeignKey('country.country_id')),
     Column('media_id', Integer),
     Column('media_type', Text, index=True),
-    Index('ix_country_link_2', 'media_id', 'media_type', 'country_id', unique=True),
-    Index('ix_country_link_1', 'country_id', 'media_type', 'media_id', unique=True)
+    Index('ix_country_link_1', 'country_id', 'media_type', 'media_id', unique=True),
+    Index('ix_country_link_2', 'media_id', 'media_type', 'country_id', unique=True)
 )
 
 
@@ -41,8 +42,8 @@ t_director_link = Table(
     Column('actor_id', Integer, ForeignKey('actor.actor_id')),
     Column('media_id', Integer),
     Column('media_type', Text, index=True),
-    Index('ix_director_link_2', 'media_id', 'media_type', 'actor_id', unique=True),
-    Index('ix_director_link_1', 'actor_id', 'media_type', 'media_id', unique=True)
+    Index('ix_director_link_1', 'actor_id', 'media_type', 'media_id', unique=True),
+    Index('ix_director_link_2', 'media_id', 'media_type', 'actor_id', unique=True)
 )
 
 
@@ -51,8 +52,8 @@ t_genre_link = Table(
     Column('genre_id', Integer, ForeignKey('genre.genre_id')),
     Column('media_id', Integer),
     Column('media_type', Text, index=True),
-    Index('ix_genre_link_2', 'media_id', 'media_type', 'genre_id', unique=True),
-    Index('ix_genre_link_1', 'genre_id', 'media_type', 'media_id', unique=True)
+    Index('ix_genre_link_1', 'genre_id', 'media_type', 'media_id', unique=True),
+    Index('ix_genre_link_2', 'media_id', 'media_type', 'genre_id', unique=True)
 )
 
 
@@ -99,8 +100,8 @@ t_movielinktvshow = Table(
     'movielinktvshow', metadata,
     Column('idMovie', Integer, ForeignKey('movie.idMovie')),
     Column('IdShow', Integer, ForeignKey('tvshow.idShow')),
-    Index('ix_movielinktvshow_1', 'IdShow', 'idMovie', unique=True),
-    Index('ix_movielinktvshow_2', 'idMovie', 'IdShow', unique=True)
+    Index('ix_movielinktvshow_2', 'idMovie', 'IdShow', unique=True),
+    Index('ix_movielinktvshow_1', 'IdShow', 'idMovie', unique=True)
 )
 
 # TODO - convert to tables with PKs?
@@ -178,11 +179,11 @@ class TvShow(Base):
 class Episode(Base):
     __tablename__ = 'episode'
     __table_args__ = (
+        Index('ix_episode_file_1', 'idEpisode', 'idFile', unique=True),
         Index('id_episode_file_2', 'idFile', 'idEpisode', unique=True),
-        Index('ix_episode_season_episode', 'c12', 'c13'),
         Index('ix_episode_show1', 'idEpisode', 'idShow'),
         Index('ix_episode_show2', 'idShow', 'idEpisode'),
-        Index('ix_episode_file_1', 'idEpisode', 'idFile', unique=True)
+        Index('ix_episode_season_episode', 'c12', 'c13')
     )
 
     id_episode = Column('idEpisode', Integer, primary_key=True)
@@ -683,6 +684,7 @@ class Path(Base):
     str_settings = Column('strSettings', Text)
     no_update = Column('noUpdate', Boolean)
     exclude = Column('exclude', Boolean)
+    all_audio = Column('allAudio', Boolean)
     date_added = Column('dateAdded', Text)
     id_parent_path = Column('idParentPath', Integer, index=True)
 

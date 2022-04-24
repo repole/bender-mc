@@ -13,11 +13,13 @@ import os
 import logging
 import threading
 import sys
+import subprocess
 
 logger = logging.getLogger(__name__)
 
 _http_server = None
 _https_server = None
+_snapclient = None
 
 
 def run(app, root_prefix="", hostname="0.0.0.0", http_port=None,
@@ -42,6 +44,11 @@ def run(app, root_prefix="", hostname="0.0.0.0", http_port=None,
         http_thread.start()
     if https_thread is not None:
         https_thread.start()
+    snapclient_cmd = (
+        "C:\\Users\\repole\\Projects\\snapcast\\bin\\Release\\snapclient.exe "
+        "-h 192.168.1.98 "
+        "-p 1704").split(" ")
+    subprocess.Popen(snapclient_cmd, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
 
 
 def run_wsgi_servers(app, user_data_path):

@@ -147,3 +147,58 @@ class KodiRpcClient(Loggable):
                 params=[playlist_id, (i + 1), {media_id_key: next_id}]
             )
         return
+
+    def play_mlb(self, list_index, is_home, game_status):
+        open_mlb = self.post_rpc(
+            method="Addons.ExecuteAddon",
+            params=["plugin.video.mlbtv"]
+        )
+        time.sleep(1)
+        self.execute_action("pageup")
+        time.sleep(.1)
+        self.post_rpc(
+            method="Input.down",
+            params=[]
+        )
+        time.sleep(.1)
+        select_today = self.post_rpc(
+            method="Input.Select",
+            params=[]
+        )
+        time.sleep(3)
+        self.execute_action("pageup")
+        for i in range(0, list_index+3):
+            self.post_rpc(
+                method="Input.Down",
+                params=[]
+            )
+            time.sleep(.1)
+        select_game = self.post_rpc(
+            method="Input.Select",
+            params=[]
+        )
+        time.sleep(3)
+        for i in range(0, 1 + 1 if not is_home else 0):
+            self.post_rpc(
+                method="Input.Down",
+                params=[]
+            )
+            time.sleep(.1)
+        select_feed = self.post_rpc(
+            method="Input.Select",
+            params=[]
+        )
+        time.sleep(3)
+        # select the live feed
+        if game_status != "Final":
+            for i in range(0, 2):
+                self.post_rpc(
+                    method="Input.Down",
+                    params=[]
+                )
+                time.sleep(.1)
+            select_start = self.post_rpc(
+                method="Input.Select",
+                params=[]
+            )
+        return
